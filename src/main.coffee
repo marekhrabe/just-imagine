@@ -124,7 +124,7 @@ module.exports = class ImageProcessor
   _generateSprites: (callback) ->
     images = @_getFileResults().map (id) => @imagesById[id]
 
-    images.filter (image) -> (image.width * image.height) < MIN_AREA_FOR_HUGE_IMAGES
+    images = images.filter (image) -> (image.width * image.height) < MIN_AREA_FOR_HUGE_IMAGES
 
     if images.length > 1
       if images.length <= MAX_LAYERS_IN_SMALL_PSD
