@@ -124,6 +124,8 @@ module.exports = class ImageProcessor
   _generateSprites: (callback) ->
     images = @_getFileResults().map (id) => @imagesById[id]
 
+    images.filter (image) -> (image.width * image.height) < MIN_AREA_FOR_HUGE_IMAGES
+
     if images.length > 1
       if images.length <= MAX_LAYERS_IN_SMALL_PSD
         spriteSheets = all: images
@@ -137,9 +139,7 @@ module.exports = class ImageProcessor
         for image in images
           imageArea = image.width * image.height
 
-          if imageArea > MIN_AREA_FOR_HUGE_IMAGES
-            continue
-          else if imageArea < MAX_AREA_FOR_SMALL_IMAGES
+          if imageArea < MAX_AREA_FOR_SMALL_IMAGES
             spriteSheets.small.push image
           else if image.type is 'text'
             spriteSheets.text.push image
