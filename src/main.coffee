@@ -54,7 +54,7 @@ module.exports = class ImageProcessor
         @_generateSprites (err) =>
           callback null,
             results: @results
-            files: @spritesheetFiles.concat @_getFileResults().map (id) => @imagesById[id]
+            files: @spritesheetFiles.concat @_getFileResults().map (id) => @imagesById[id].file
 
   _getFileResults: ->
     Object.keys(@results).filter (id) => @results[id].type is 'file'
