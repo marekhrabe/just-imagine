@@ -96,14 +96,17 @@ module.exports = class ImageProcessor
     test = @_generateConvertTask @_generatePaletteArguments image
     test (err, output) =>
       [count, color] = output.split '='
-      normalized = imColors[color.toLowerCase()]
-      if normalized
-        color = normalized
-      if err?.stderr?.indexOf('colors.xml') isnt -1
-        err = false
+      if color
+        normalized = imColors[color.toLowerCase()]
+        if normalized
+          color = normalized
+        if err?.stderr?.indexOf('colors.xml') isnt -1
+          err = false
 
-      if not err and parseInt(count, 10) is 1
-        callback null, tinycolor(color.replace('srgb', 'rgb')).toRgb()
+        if not err and parseInt(count, 10) is 1
+          callback null, tinycolor(color.replace('srgb', 'rgb')).toRgb()
+        else
+          callback err
       else
         callback err
 
@@ -119,6 +122,7 @@ module.exports = class ImageProcessor
   _generateConvertTask: (args) ->
     (done) =>
       exec "\"#{@convertPath}\" #{args}", {}, (error, stdout, stderr) ->
+        console.log error
         done((if error or stderr then {error: error, stdout: stdout, stderr: stderr } else null), stdout)
 
   _generateSprites: (callback) ->
