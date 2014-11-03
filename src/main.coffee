@@ -122,7 +122,6 @@ module.exports = class ImageProcessor
   _generateConvertTask: (args) ->
     (done) =>
       exec "\"#{@convertPath}\" #{args}", {}, (error, stdout, stderr) ->
-        console.log error
         done((if error or stderr then {error: error, stdout: stdout, stderr: stderr } else null), stdout)
 
   _generateSprites: (callback) ->
