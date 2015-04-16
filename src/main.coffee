@@ -11,6 +11,7 @@ MIN_AREA_FOR_HUGE_IMAGES = 400000
 MAX_AREA_FOR_SMALL_IMAGES = 4000
 MAX_LAYERS_IN_SMALL_PSD = 50
 MIN_LAYERS_IN_SPRITE = 30
+TRANSPARENT_COLOR = if process.platform is 'darwin' then 'xc:rgba\\(0,0,0,0\\)' else 'xc:rgba(0,0,0,0)'
 
 module.exports = class ImageProcessor
   constructor: ({ images, @convertPath }) ->
@@ -114,7 +115,7 @@ module.exports = class ImageProcessor
     "#{image.file} -unique-colors -colorspace sRGB -format \"%w=%[pixel:p{0,0}]\" info:"
 
   _generateSpriteArguments: (info) ->
-    args = ["-size #{info.width}x#{info.height} xc:rgba\\(0,0,0,0\\)"]
+    args = ["-size #{info.width}x#{info.height} " + TRANSPARENT_COLOR]
     for item in info.items
       args.push "#{@imagesById[item.meta].file} -geometry +#{item.x}+#{item.y} -composite"
     args.join ' '
