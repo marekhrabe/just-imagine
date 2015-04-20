@@ -115,12 +115,12 @@ module.exports = class ImageProcessor
         callback err
 
   _generatePaletteArguments: (image) ->
-    "#{image.file} -unique-colors -colorspace sRGB -format \"%w=%[pixel:p{0,0}]\" info:"
+    "\"#{image.file}\" -unique-colors -colorspace sRGB -format \"%w=%[pixel:p{0,0}]\" info:"
 
   _generateSpriteArguments: (info) ->
     args = ["-size #{info.width}x#{info.height} " + TRANSPARENT_COLOR]
     for item in info.items
-      args.push "#{@imagesById[item.meta].file} -geometry +#{item.x}+#{item.y} -composite"
+      args.push "\"#{@imagesById[item.meta].file}\" -geometry +#{item.x}+#{item.y} -composite"
     args.join ' '
 
   _generateConvertTask: (args) ->
