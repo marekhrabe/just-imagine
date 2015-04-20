@@ -47,8 +47,11 @@ module.exports = class ImageProcessor
         res = @results[id]
         @_testSimpleFill @imagesById[id], (err, fill) =>
           if not err and fill
-            res.type = 'color'
-            res.color = fill
+            if fill.a is 0
+              res.type = 'blank'
+            else
+              res.type = 'color'
+              res.color = fill
           done()
       , (err) =>
         # finally sprites
