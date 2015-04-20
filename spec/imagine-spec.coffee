@@ -138,3 +138,19 @@ describe 'Just imagine', ->
         expect(results.files.length).toEqual 1
 
     # todo - test with more images (icon set) to see how they would be divided into few
+
+  describe 'blank images', ->
+    it 'should mark blank images', ->
+      processor = new ImageProcessor
+        images: [
+          id: 1
+          width: 400
+          height: 400
+          file: path.join imagesDir, 'all-transparent.png'
+          type: 'shape'
+        ]
+      processor.process (err, res) -> results = res
+      waitsFor -> results
+
+      runs ->
+        expect(results.results['1'].type).toEqual 'blank'
