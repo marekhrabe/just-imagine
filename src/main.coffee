@@ -7,7 +7,7 @@ imColors = require 'imagemagick-colors'
 temp = require 'temp'
 {compare} = require 'file-compare'
 
-MIN_AREA_FOR_HUGE_IMAGES = 400000
+MIN_AREA_FOR_HUGE_IMAGES = 600000
 MAX_AREA_FOR_SMALL_IMAGES = 4000
 MAX_LAYERS_IN_SMALL_PSD = 50
 MIN_LAYERS_IN_SPRITE = 30
