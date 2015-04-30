@@ -101,7 +101,8 @@ module.exports = class ImageProcessor
     test (err, output) =>
       [count, color] = output.split '='
       if color
-        normalized = imColors[color.toLowerCase()]
+        color = color.trim().toLowerCase()
+        normalized = imColors[color]
         if normalized
           color = normalized
         if err?.stderr?.indexOf('colors.xml') isnt -1
