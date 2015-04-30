@@ -11,7 +11,7 @@ MIN_AREA_FOR_HUGE_IMAGES = 600000
 MAX_AREA_FOR_SMALL_IMAGES = 4000
 MAX_LAYERS_IN_SMALL_PSD = 50
 MIN_LAYERS_IN_SPRITE = 30
-TRANSPARENT_COLOR = if process.platform is 'darwin' then 'xc:rgba\\(0,0,0,0\\)' else 'xc:rgba(0,0,0,0)'
+TRANSPARENT_COLOR = if process.platform isnt 'win32' then 'xc:rgba\\(0,0,0,0\\)' else 'xc:rgba(0,0,0,0)'
 
 module.exports = class ImageProcessor
   constructor: ({ images, @convertPath }) ->
