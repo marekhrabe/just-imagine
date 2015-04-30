@@ -22,6 +22,21 @@ twoAvocados = [
   }
 ]
 
+twoBlanks = [
+  {
+    id: 1
+    width: 400
+    height: 400
+    file: path.join imagesDir, 'all-transparent.png'
+  }
+  {
+    id: 2
+    width: 400
+    height: 400
+    file: path.join imagesDir, 'all-transparent.png'
+  }
+]
+
 source = {
   id: 5
   width: 74
@@ -140,7 +155,7 @@ describe 'Just imagine', ->
     # todo - test with more images (icon set) to see how they would be divided into few
 
   describe 'blank images', ->
-    it 'should mark blank images', ->
+    it 'should be marked', ->
       processor = new ImageProcessor
         images: [
           id: 1
@@ -154,3 +169,13 @@ describe 'Just imagine', ->
 
       runs ->
         expect(results.results['1'].type).toEqual 'blank'
+
+    it 'should be explicitely marked as blank even they are duplicates of some other (blank) image', ->
+      processor = new ImageProcessor
+        images: twoBlanks
+      processor.process (err, res) -> results = res
+      waitsFor -> results
+
+      runs ->
+        expect(results.results['1'].type).toEqual 'blank'
+        expect(results.results['2'].type).toEqual 'blank'
