@@ -1,5 +1,6 @@
 {exec} = require 'child_process'
 path = require 'path'
+EventEmitter = require 'events'
 async = require 'async'
 layout = require 'layout'
 tinycolor = require 'tinycolor2'
@@ -13,7 +14,7 @@ MAX_LAYERS_IN_SMALL_PSD = 50
 MIN_LAYERS_IN_SPRITE = 30
 TRANSPARENT_COLOR = if process.platform isnt 'win32' then 'xc:rgba\\(0,0,0,0\\)' else 'xc:rgba(0,0,0,0)'
 
-module.exports = class ImageProcessor
+module.exports = class ImageProcessor extends EventEmitter
   constructor: ({ images, @convertPath }) ->
     @convertPath ?= 'convert'
 
@@ -39,6 +40,7 @@ module.exports = class ImageProcessor
         if original
           result.type = 'duplicate'
           result.original = original
+        @emit('update')
         done()
     , (err) =>
       # simple fills
@@ -52,6 +54,7 @@ module.exports = class ImageProcessor
             else
               res.type = 'color'
               res.color = fill
+          @emit('update')
           done()
       , (err) =>
         # finally sprites
@@ -109,6 +112,7 @@ module.exports = class ImageProcessor
           err = false
 
         if not err and parseInt(count, 10) is 1
+          @emit('update')
           callback null, tinycolor(color.replace('srgb', 'rgb')).toRgb()
         else
           callback err
