@@ -1,6 +1,6 @@
 {exec} = require 'child_process'
 path = require 'path'
-EventEmitter = require 'events'
+{EventEmitter} = require 'events'
 async = require 'async'
 layout = require 'layout'
 tinycolor = require 'tinycolor2'
