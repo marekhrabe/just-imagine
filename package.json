@@ -1,6 +1,6 @@
 {
   "name": "just-imagine",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "lib/main.js",
   "bin": "lib/cli.js",
   "description": "Just imagine…",
