@@ -6,7 +6,7 @@
   "description": "Just imagine…",
   "scripts": {
     "test": "npm run prepublish && jasmine-node spec --coffee",
-    "prepublish": "./node_modules/.bin/coffee -o lib/ src/"
+    "prepublish": "./node_modules/.bin/coffee -o lib/ src/ && echo \"#!/usr/bin/env node\" | cat - lib/cli.js > /tmp/cli-build && mv /tmp/cli-build lib/cli.js"
   },
   "dependencies": {
     "async": "^0.9.0",

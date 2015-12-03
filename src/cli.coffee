@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 ImageProcessor = require './main'
 
 process.stdin.resume()
